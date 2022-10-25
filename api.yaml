@@ -1,5 +1,5 @@
 swagger: "2.0"
-host: localhost:3000
+host: saboapp.herokuapp.com
 info: 
  title: SABO API
  description: API FOR SABO SERVICES
