@@ -1,0 +1,361 @@
+swagger: "2.0"
+host: localhost:3000
+info: 
+ title: SABO API
+ description: API FOR SABO SERVICES
+ version: 1.0
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+
+paths:
+ /auth/signup:
+  post:
+   summary: Create a new user
+   tags:
+    - Authentication
+   produces: 
+    - application/json
+   consumes:
+    - application/json
+   parameters:
+   - in: body
+     name: User
+     schema:
+      type: object
+      properties: 
+       email:
+        type: string
+       password:
+        type: string
+      
+   responses:
+    200:
+     description: User created
+     schema:
+      type: object
+      properties: 
+       success:
+        type: boolean
+        example: true
+       message:
+        type: string
+        example: "message"
+       token:
+        type: string
+        example: "token"
+      
+    401:
+     description: User was not created
+    500:
+     description: User was not created too
+
+ /auth/login:
+  post:
+   summary: Login a user
+   tags:
+    - Authentication
+   produces: 
+    - application/json
+   consumes:
+    - application/json
+   parameters:
+   - in: body
+     name: User
+     schema:
+      type: object
+      properties: 
+       email:
+        type: string
+       password:
+        type: string
+      
+   responses:
+    200:
+     description: User Logged in
+     schema:
+      type: object
+      properties: 
+       success:
+        type: boolean
+        example: true
+       message:
+        type: string
+        example: "message"
+       token:
+        type: string
+        example: "token"
+      
+    401:
+     description: Login error
+     schema:
+      type: object
+      properties: 
+       message:
+        type: string
+        example: "message"
+      
+       
+    500:
+     description: Login error
+     schema:
+      type: object
+      properties: 
+       message:
+        type: string
+        example: "message"
+
+ 
+ /auth/passwordReset:
+  post:
+   summary: Reset user's password
+   tags:
+    - Authentication
+   produces: 
+    - application/json
+   consumes:
+    - application/json
+   parameters:
+   - in: body
+     name: Password
+     schema:
+      type: object
+      properties: 
+       email:
+        type: string
+      
+      
+   responses:
+    200:
+     description: Password reset successful
+     schema:
+      type: object
+      properties: 
+       success:
+        type: boolean
+        example: true
+       message:
+        type: string
+        example: "message"
+       
+      
+    401:
+     description: Email is not found
+     schema:
+      type: string
+      example: "email not found"
+      
+           
+    500:
+     description: Server error
+     schema:
+      type: string
+      example: "server eror"
+
+
+ /auth/passwordReset/{userId}/{token}:
+  post:
+   summary: change the user password
+   tags:
+    - Authentication 
+   description: changed users password
+   
+   parameters:
+     - name: userId
+       in: path
+       required: true
+       schema:
+        type: string
+     - name: token
+       in: path
+       required: true
+       schema:
+        type: string
+      
+   responses:
+    200:
+     description: Success
+     schema:
+      type: object
+      properties: 
+       success:
+        type: boolean
+        example: true
+       message:
+        type: string
+        example: "message"
+
+    401:
+     description:  Invalid link
+    404:
+     description:  Password change failure
+    500:
+     description:  Internal server error
+ 
+ /auth/setPin:
+  put:
+   summary: set user's pin
+   security:
+    - Bearer: []
+    
+   tags:
+    - Profile
+   produces: 
+    - application/json
+   consumes:
+    - application/json
+   parameters:
+   - in: body
+     name: Profile
+     schema:
+      type: object
+      properties: 
+       pin:
+        type: string
+       
+      
+   responses:
+    200:
+     description: User pin set
+    401:
+     description: could not set user's pin
+    500:
+     description: internal server error
+
+ /auth/verifyPin:
+  post:
+   summary: verify user's pin
+   security:
+    - Bearer: []
+    
+   tags:
+    - Profile
+   produces: 
+    - application/json
+   consumes:
+    - application/json
+   parameters:
+   - in: body
+     name: Profile
+     schema:
+      type: object
+      properties: 
+       pin:
+        type: string
+       
+      
+   responses:
+    200:
+     description: User pin verified
+    401:
+     description: could not verify user's pin
+    500:
+     description: internal server error
+
+ /auth/addProfile:
+  post:
+   summary: complete user details
+   tags:
+    - Authentication
+   produces: 
+    - application/json
+   consumes:
+    - application/json
+   parameters:
+   - in: body
+     name: User
+     schema:
+      type: object
+      properties: 
+       firstName:
+        type: string
+        example: "kalu"
+       lastName:
+        type: string
+        example: "peter"
+       address:
+        type: string
+        example: "c close anjo pejk"
+       birthDate: 
+        type: string
+        example: "2022-09-13"
+
+   responses:
+    200:
+     description: User Logged in
+     schema:
+      type: object
+      properties: 
+       success:
+        type: boolean
+        example: true
+       message:
+        type: string
+        example: "message"
+       token:
+        type: string
+        example: "token"
+      
+    401:
+     description: Login error
+     schema:
+      type: object
+      properties: 
+       message:
+        type: string
+        example: "message"
+      
+       
+    500:
+     description: Login error
+     schema:
+      type: object
+      properties: 
+       message:
+        type: string
+        example: "message"
+ 
+ /auth/getProfile:
+  get:
+   summary: get profile for the user
+   tags:
+    - Authentication
+   description: get the particular profile for the user
+   security:
+    - Bearer: []
+    
+   responses: 
+    200:
+     description: Success
+    401:
+     description:  Error getting the profile
+    500:
+     description:  Internal server error
+
+
+components: 
+ securitySchemes:
+  BearerAuth:
+   type: http
+   scheme: bearer
+ schemas:
+  User:
+   type: object
+   properties: 
+    firstName:
+     type: string
+     required: true
+    lastName:
+     type: string
+     required: true
+    email:
+     type: string
+     required: true
+    username:
+     type: string
+     required: true
+    password:
+     type: string
+     required: true
