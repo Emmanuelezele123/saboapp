@@ -257,6 +257,8 @@ paths:
  /auth/addProfile:
   put:
    summary: complete user details
+   security:
+    - Bearer: []
    tags:
     - Authentication
    produces: 
