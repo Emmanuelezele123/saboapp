@@ -107,7 +107,7 @@ exports.resetPassword = async (req, res) => {
             }).save();
         }
 
-        const link = `${process.env.TEST_URL}/auth/passwordReset/${user._id}/${token.token}`;
+        const link = `${process.env.BASE_URL}/auth/passwordReset/${user._id}/${token.token}`;
         sendEmail(user.email, "Password reset", link,res)
        
        
