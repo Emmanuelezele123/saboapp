@@ -2,7 +2,7 @@ swagger: "2.0"
 host: saboapp.herokuapp.com
 info: 
  title: SABO API
- description:SABO SERVICES
+ description: SABO SERVICES
  version: 1.0
 securityDefinitions:
   Bearer:
