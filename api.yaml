@@ -255,7 +255,7 @@ paths:
      description: internal server error
 
  /auth/addProfile:
-  post:
+  put:
    summary: complete user details
    tags:
     - Authentication
