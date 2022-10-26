@@ -15,7 +15,7 @@ router.post('/passwordReset', AuthController.resetPassword)
 
 router.post('/passwordReset/:userId/:token', AuthController.changePassword)
 
-router.put("/completeprofile",authenticateUser,ProfileController.completeProfile)
+router.put("/addProfile",authenticateUser,ProfileController.completeProfile)
 
 router.get("/getProfile",authenticateUser,ProfileController.getProfile)
 
