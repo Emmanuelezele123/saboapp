@@ -1,6 +1,7 @@
 const User = require('../models/user')
 const crypto = require('crypto')
 const Token = require('../models/token')
+const Otp = require('../models/otp')
 const bcrypt = require('bcrypt')
 const sendEmail = require('../helpers/sendEmail')
 require("dotenv").config()
@@ -108,7 +109,7 @@ exports.resetPassword = async (req, res) => {
         }
 
         const link = `${process.env.BASE_URL}/auth/passwordReset/${user._id}/${token.token}`;
-        sendEmail(user.email, "Password reset", link,res)
+        sendEmail(user.email, "Sabo App Password reset", link,res,"email")
        
        
         

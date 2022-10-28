@@ -33,6 +33,12 @@ const userSchema = new Schema({
     pin:{
         type:String,
         max: 4
+    },
+    verified:{
+        type:Boolean,
+        default:false
+
+       
     }
     
     

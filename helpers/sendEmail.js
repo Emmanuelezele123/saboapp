@@ -2,7 +2,7 @@
 
 const sgMail = require('@sendgrid/mail')
 require("dotenv").config()
-const sendEmail = (email, subject, text,res) => {
+const sendEmail = (email, subject, text,res,type) => {
     const sgMail = require('@sendgrid/mail')
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
     const msg = {
@@ -14,15 +14,30 @@ const sendEmail = (email, subject, text,res) => {
     sgMail
       .send(msg)
       .then(() => {
+       if(type === "email"){
         console.log('Email sent')
         return res.status(200).json({status:"Success",message:"password reset link sent to your email account"})
       
+       }else{
+        console.log('otp sent')
+        
+        return res.status(200).json({status:"Success",message:"otp sent successfully"})
+      
+       }
+       
         
       })
       .catch((error) => {
-        console.error(error)
-        return res.status(401).json({status:"Failure",message:"password reset link was not sent"})
-       })
+        if(type === "email"){
+          console.error(error)
+          return res.status(401).json({status:"Failure",message:"password reset link was not sent"})
+      
+        }else{
+          console.error(error)
+          return res.status(401).json({status:"Failure",message:"otp failed"})
+      
+        }
+          })
 };
 
 module.exports = sendEmail;

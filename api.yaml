@@ -337,6 +337,59 @@ paths:
      description:  Internal server error
 
 
+
+ /auth/sendOtp:
+  post:
+   summary: send user otp
+   security:
+    - Bearer: []
+    
+   tags:
+    - OTP
+   produces: 
+    - application/json
+   consumes:
+    - application/json
+   responses:
+    200:
+     description: User otp sent
+    401:
+     description: could not send otp
+    500:
+     description: internal server error
+
+ /auth/verifyOtp:
+  post:
+   summary: verify user otp
+   security:
+    - Bearer: []
+    
+   tags:
+    - OTP
+   produces: 
+    - application/json
+   consumes:
+    - application/json
+   parameters:
+   - in: body
+     name: Otp
+     schema:
+      type: object
+      properties: 
+       otp:
+        type: string
+       
+      
+   responses:
+    200:
+     description: User otp verified
+    401:
+     description: could not verify user's otp
+    500:
+     description: internal server error
+
+
+
 components: 
  securitySchemes:
   BearerAuth:
